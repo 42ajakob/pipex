@@ -6,7 +6,7 @@ OBJS	= ${SRCS:.c=.o}
 
 all: $(NAME)
 
-$(NAME): $(OBJS) Makefile
+$(NAME): $(OBJS)
 	@make -C libft/
 	@$(CC) -Wall -Wextra -Werror $(SRCS) libft/libft.a -o pipex
 	@chmod +x pipex
