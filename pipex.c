@@ -6,7 +6,7 @@
 /*   By: ajakob <ajakob@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:02:20 by ajakob            #+#    #+#             */
-/*   Updated: 2023/07/25 22:07:43 by ajakob           ###   ########.fr       */
+/*   Updated: 2023/07/27 13:45:12 by ajakob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	child(t_arg arg, int pipefd[], char *envp[])
 	ft_error();
 }
 
-void	mother(t_arg arg, int pipefd[], char *envp[])
+void	second_child(t_arg arg, int pipefd[], char *envp[])
 {
 	char	**arr;
 	int		fd;
@@ -67,6 +67,7 @@ void	mother(t_arg arg, int pipefd[], char *envp[])
 void	ft_fork(t_arg arg, char *envp[])
 {
 	int		pipefd[2];
+	int		pid2;
 	int		pid;
 
 	pipe(pipefd);
@@ -75,8 +76,16 @@ void	ft_fork(t_arg arg, char *envp[])
 		child(arg, pipefd, envp);
 	else if (pid > 0)
 	{
+		pid2 = fork();
+		if (pid2 == 0)
+			second_child(arg, pipefd, envp);
+	}
+	if (pid > 0 && pid2 > 0)
+	{
+		close(pipefd[0]);
+		close(pipefd[1]);
 		waitpid(pid, NULL, 0);
-		mother(arg, pipefd, envp);
+		waitpid(pid2, NULL, 0);
 	}
 }
 
@@ -91,5 +100,5 @@ int	main(int argc, char *argv[], char *envp[])
 	arg.cmd2 = argv[3];
 	arg.outfile = argv[4];
 	ft_fork(arg, envp);
-	return (ft_error(), EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

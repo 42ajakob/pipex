@@ -6,7 +6,7 @@
 #    By: ajakob <ajakob@student.42heilbronn.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/19 21:33:02 by ajakob            #+#    #+#              #
-#    Updated: 2023/06/03 03:15:48 by ajakob           ###   ########.fr        #
+#    Updated: 2023/07/27 14:02:10 by ajakob           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,7 @@ OBJS	= ${SRCS:.c=.o}
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(OBJS)
 	@$(CC) -c -Wall -Wextra -Werror $(SRCS)
 	@$(AR) rc $(NAME) $(OBJS)
 

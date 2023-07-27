@@ -6,17 +6,17 @@ OBJS	= ${SRCS:.c=.o}
 
 all: $(NAME)
 
-$(NAME):
-	@cd libft && make
+$(NAME): $(OBJS) Makefile
+	@make -C libft/
 	@$(CC) -Wall -Wextra -Werror $(SRCS) libft/libft.a -o pipex
 	@chmod +x pipex
 
 clean:
-	@cd libft && make clean
+	@make -C libft/ clean
 	@rm -f $(OBJS)
 
 fclean: clean
-	@cd libft && make fclean
+	@make -C libft/ fclean
 	@rm -f $(NAME)
 
 re: fclean all
