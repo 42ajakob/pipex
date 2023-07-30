@@ -6,7 +6,7 @@
 /*   By: ajakob <ajakob@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 01:17:49 by ajakob            #+#    #+#             */
-/*   Updated: 2023/07/25 21:31:56 by ajakob           ###   ########.fr       */
+/*   Updated: 2023/07/30 17:06:52 by ajakob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,8 @@ typedef struct arg_s
 
 char	*find_path(char *cmd, char *env[]);
 char	**alloc_arr(char *cmd);
+void	ft_free(char **ptr);
+void	ft_error(char *str);
+int		dup2_close(int fd, int std, int pipefd[]);
 
 #endif

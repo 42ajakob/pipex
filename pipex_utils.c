@@ -6,40 +6,56 @@
 /*   By: ajakob <ajakob@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:13:15 by ajakob            #+#    #+#             */
-/*   Updated: 2023/07/27 14:20:35 by ajakob           ###   ########.fr       */
+/*   Updated: 2023/07/30 17:06:40 by ajakob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	**pathing(char *path, char **path_arr, char *cmd)
+void	ft_free(char **ptr)
+{
+	int	i;
+
+	i = 0;
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		ptr[i] = NULL;
+		i++;
+	}
+	free(ptr);
+}
+
+char	*pathing(char **path_arr, char *cmd)
 {
 	char	*tmp;
+	char	*tmp2;
 	int		i;
 
 	i = 0;
 	while (path_arr[i])
 	{
 		tmp = ft_strjoin(path_arr[i], "/");
-		free(path_arr[i]);
-		path_arr[i] = ft_strjoin(tmp, cmd);
+		tmp2 = ft_strjoin(tmp, cmd);
 		free(tmp);
-		if (access(path_arr[i], F_OK) == 0)
+		if (access(tmp2, F_OK) == 0)
+			return (tmp2);
+		else
 		{
-			free(path);
-			return (&path_arr[i]);
+			free(tmp2);
+			tmp2 = NULL;
 		}
 		i++;
 	}
 	return (NULL);
 }
 
-char	*find_path(char *cmd, char *env[])
+char	*find_path(char *cmd, char **env)
 {
 	int		i;
 	char	*path;
 	char	**path_arr;
-	char	**tmp;
+	char	*tmp;
 
 	i = 0;
 	while (env[i])
@@ -48,17 +64,17 @@ char	*find_path(char *cmd, char *env[])
 		{
 			path = ft_strdup(env[i] + 5);
 			path_arr = ft_split(path, ':');
-			tmp = pathing(path, path_arr, cmd);
-			if (tmp)
-				return (*tmp);
 			free(path);
-			free(path_arr);
-			free(tmp);
-			return (NULL);
+			tmp = pathing(path_arr, cmd);
+			ft_free(path_arr);
+			if (tmp)
+				return (tmp);
+			else
+				return (free(tmp), tmp = NULL, NULL);
 		}
 		i++;
 	}
-	return (NULL);
+	return (ft_error("Env variable PATH= not found"), NULL);
 }
 
 char	**alloc_arr(char *cmd)
@@ -69,4 +85,14 @@ char	**alloc_arr(char *cmd)
 	if (!arr)
 		return (NULL);
 	return (arr);
+}
+
+int	dup2_close(int fd, int std, int pipefd[])
+{
+	if ((dup2(fd, std)) == -1)
+		ft_error("dup2");
+	close(fd);
+	close(pipefd[0]);
+	close(pipefd[1]);
+	return (0);
 }
