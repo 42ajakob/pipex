@@ -6,7 +6,7 @@
 /*   By: ajakob <ajakob@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:13:15 by ajakob            #+#    #+#             */
-/*   Updated: 2023/08/01 14:36:25 by ajakob           ###   ########.fr       */
+/*   Updated: 2023/08/01 14:40:24 by ajakob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*pathing(char **path_arr, char *cmd)
 
 	i = 0;
 	if (access(cmd, F_OK) == 0)
-			return (cmd);
+		return (cmd);
 	while (path_arr[i])
 	{
 		tmp = ft_strjoin(path_arr[i], "/");
