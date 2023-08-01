@@ -6,7 +6,7 @@
 /*   By: ajakob <ajakob@student.42heilbronn.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 14:02:20 by ajakob            #+#    #+#             */
-/*   Updated: 2023/07/30 17:30:28 by ajakob           ###   ########.fr       */
+/*   Updated: 2023/08/01 14:37:31 by ajakob           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,8 @@ int	main(int argc, char *argv[], char *envp[])
 
 	if (argc != 5)
 		return (ft_error("argc"), EXIT_FAILURE);
-	else if (access(argv[1], F_OK) != 0)
-		return (ft_error("fd1"), EXIT_FAILURE);
-	else if (*envp == NULL)
+
+	else if (*envp == NULL && !(access(argv[2], F_OK) == 0) && !(access(argv[3], F_OK) == 0))
 		return (ft_error("envp"), EXIT_FAILURE);
 	arg.infile = argv[1];
 	arg.cmd1 = argv[2];
