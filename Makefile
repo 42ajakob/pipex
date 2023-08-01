@@ -22,4 +22,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re, foo
+.PHONY: all, clean, fclean, re
