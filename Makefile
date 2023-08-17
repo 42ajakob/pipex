@@ -4,7 +4,7 @@ CFLAGS	= -Wall -Wextra -Werror
 LIBFT	= libft/libft.a
 
 SRCS	= pipex_utils.c \
-			pipex.c \
+			pipex.c
 OBJS	= ${SRCS:.c=.o}
 
 all: $(NAME)
