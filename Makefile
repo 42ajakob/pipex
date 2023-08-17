@@ -10,7 +10,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C libft/
-	@$(CC) $(CFLAGS) $(SRCS) $(LIBFT) -o pipex
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o pipex
 
 clean:
 	@make -C libft/ clean
