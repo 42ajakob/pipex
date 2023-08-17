@@ -3,7 +3,8 @@ NAME	= pipex
 CFLAGS	= -Wall -Wextra -Werror
 LIBFT	= libft/libft.a
 
-SRCS	= $(shell find ./ -maxdepth 1 -iname "*.c")
+SRCS	= pipex_utils.c \
+			pipex.c \
 OBJS	= ${SRCS:.c=.o}
 
 all: $(NAME)
